@@ -6,8 +6,8 @@ app.controller('homeController',['$scope','$location','$timeout', '$state', func
 	getAllBlogs();
 	function getAllBlogs() {
 		database.ref('blogs/').once('value', function(snapshot) {
+			var tagList = [];
 			snapshot.forEach(function(data) {
-				var tagList = [];
 				$timeout(function() {
 					$scope.blogsLists.push({
 						id: data.val().id,
@@ -18,11 +18,13 @@ app.controller('homeController',['$scope','$location','$timeout', '$state', func
 						tags: data.val().tags
 					});
 				},10);
+
 				if (data.val().tags != undefined) {
 					for (var i = 0; i < data.val().tags.length; i++) {
-						$scope.tagsList.push({
-							tags: data.val().tags[i]
-						});
+						if (tagList.indexOf(data.val().tags[i].toLowerCase()) == -1) {
+							tagList.push(data.val().tags[i].toLowerCase());
+							$scope.tagsList.push({tags: data.val().tags[i]});
+						}
 					}
 				}
 			});
@@ -38,26 +40,12 @@ app.controller('homeController',['$scope','$location','$timeout', '$state', func
 		$state.go("viewBlog", {blogId: id});
 	}
 
-/*	function getAllTagsByBlogId(blogId) {
-		database.ref('tag-blog/').once('value', function(snapshot) {
-				snapshot.forEach(function(data) {
-					$timeout(function() {
-						if (data.val().blogid == blogId) {
-							getAllTagsByBlogId(data.val().tagId);
-							// keepGoing = false;
-						}
-					},10);
-				});
-		});
-	}
-*/
 	$scope.searchBlogsByTag = function(tag) {
-			
 		database.ref('blogs/').once('value', function(snapshot) {
 			snapshot.forEach(function(data) {
 			var keepGoing = true;
 			var tagPresent = false;
-							$scope.blogsLists = [];
+			$scope.blogsLists = [];
 			if (keepGoing) {
 					$timeout(function() {
 						for (var i = 0; i < data.val().tags.length; i++) {
@@ -65,11 +53,9 @@ app.controller('homeController',['$scope','$location','$timeout', '$state', func
 								if (tag == data.val().tags[i]) {
 									keepGoing = false;
 									tagPresent = true;
-
 								}
 							}
 						}
-
 						if (tagPresent) {
 							$scope.blogsLists.push({
 								id: data.val().id,

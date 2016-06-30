@@ -1,0 +1,73 @@
+
+
+<div>
+  <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings" ng-click="viewBlogs()">
+          <md-icon md-svg-icon="images/back_arrow.svg"></md-icon>
+        </md-button>
+        <h1>
+          <span>Create New Blog</span>
+        </h1>
+        <span flex="70"></span>
+        <!-- <md-button class="md-raised" ng-click="createNewBlog()">Create New Blog</md-button> -->
+      </div>
+  </md-toolbar>
+</div>
+
+<div ng-controller="createBlogController" layout="column" ng-cloak>
+  <md-content layout-padding>
+	<md-card-title>
+	</md-card-title>
+    <form name="createForm" id="createForm">
+      <md-input-container class="md-block">
+        <label>Title</label>
+        <input required="" name="title" ng-model="blog.title">
+        <div ng-messages="blog.title.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Sub Title</label>
+        <input md-maxlength="35" required name="subTitle" ng-model="blog.subTitle">
+        <div ng-messages="blog.subTitle.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The name has to be less than 35 characters long.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Short Description</label>
+        <input required type="text" name="shortDescription" ng-model="blog.shortDescription" md-maxlength="200" />
+        <div ng-messages="blog.shortDescription.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The description should be less than 200 characters.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Description</label>
+        <input required type="text" name="description" ng-model="blog.description"/>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <div layout="row">
+	    	<label>Tags</label>
+	        <div layout="row">
+	        	<input id="tagInput" type="text" name="tags" ng-model="blog.tags"/>
+	        </div>
+	        <div layout="row">
+	        </div>
+    	    <md-button class="md-icon-button" ng-click="appendNewTag(blog.tags)" aria-label="Settings" value="clear">
+        	  <md-icon md-svg-icon="images/add_more.svg"></md-icon>
+       	 	</md-button>
+	    </div>
+	    <div layout="row">
+	        <md-chips> 
+	          <md-chip ng-repeat="tag in tagList" ng-show="tagList"> {{tag}} </md-chip>
+	        </md-chips>
+		</div>
+      </md-input-container>
+      <md-card-actions layout="row" layout-align="center">
+          <md-button class="md-primary md-raised" ng-click="addBlog(blog)">Submit</md-button>
+	  </md-card-actions>
+    </form>
+  </md-content>
+</div>

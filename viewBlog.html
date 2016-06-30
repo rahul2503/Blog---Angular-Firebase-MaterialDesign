@@ -1,0 +1,52 @@
+<div>
+  <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings" ng-click="viewBlogs()">
+          <md-icon md-svg-icon="images/back_arrow.svg"></md-icon>
+        </md-button>
+        <h1>
+          <span>Detail View</span>
+        </h1>
+        <span flex="70"></span>
+      </div>
+  </md-toolbar>
+</div>
+
+<div ng-controller="viewBlogController" layout="row" ng-cloak>
+  <div ng-cloak flex="65">
+    <md-content class="md-padding" layout-xs="row" layout="column">
+      <div flex-xs flex-gt-xs="50" layout="column">
+        <md-card>
+          <img ng-src="" class="md-card-image"/>
+          <md-card-title>
+            <md-card-title-text>
+              <div layout="row" layout-align="center center">
+                <span class="md-headline"><h3>{{blogDetails.title}}</h3></span>
+              </div>
+              <div layout="row">
+                    <span class="md-subhead" flex="85"><h3>{{blogDetails.subTitle}}</h3></span>
+                    <span class="md-subhead" flex="15"><h3>{{blogDetails.date}}</h3></span>
+              </div> 
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <b>Description:</b>
+              <p align="justify">{{blogDetails.description}}
+          </md-card-content>
+        </md-card>
+      </div>
+    </md-content>
+  </div>
+
+  <div flex="30" ng-cloak >
+    <md-content class="md-padding" layout="column">
+      <p><b>Tags: </b></p>
+      <span>
+        <md-chips ng-show="allTags"> 
+          <md-chip ng-repeat="tag in allTags"> {{tag.tags}} </md-chip>
+        </md-chips>
+      </span>
+    </md-content>
+  </div>
+</div>
+

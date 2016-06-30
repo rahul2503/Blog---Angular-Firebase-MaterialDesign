@@ -1,0 +1,21 @@
+.carddemoBasicUsage .card-media {
+  background-color: #999999; 
+}
+
+.toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
+  color: white; 
+}
+
+.chipsdemoStaticChips p.note {
+  font-size: 12px; 
+}
+
+
+
+.a1 {
+    margin-left: 10cm;
+}
+
+p { 
+   text-indent: 30px;
+}

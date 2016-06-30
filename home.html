@@ -1,0 +1,70 @@
+
+<div>
+  <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+          <md-icon md-svg-icon="images/sidemenu.svg"></md-icon>
+        </md-button>
+        <h1>
+          <span>Blog</span>
+        </h1>
+        <span flex="80"></span>
+        <md-button class="md-raised" ng-click="createNewBlog()">Create New Blog</md-button>
+      </div>
+  </md-toolbar>
+</div>
+
+
+<div ng-controller="homeController" layout="row" ng-cloak>
+  <div ng-cloak flex="65">
+    <md-content class="md-padding" layout-xs="row" layout="column">
+      <div flex-xs flex-gt-xs="50" layout="column" ng-repeat="blogsList in blogsLists">
+        <md-card>
+          <img ng-src="" class="md-card-image"/>
+          <md-card-title>
+            <md-card-title-text>
+              <div layout="row" layout-align="center center">
+              <span class="md-headline"><h3><b>{{$index+1}}.</b>  {{blogsList.title}}</h3></span>
+              </div>
+              <div layout="row">
+                <span class="md-subhead" flex="70"><h3>{{blogsList.subTitle}}</h3></span>
+                <span class="md-subhead" flex="30"><h3>{{blogsList.date}}</h3></span>
+              </div>  
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <b>Short Description:</b>
+              <p align="justify">{{blogsList.shortDescription}}</p>
+          </md-card-content>
+          <md-card-content ng-show="blogsList.tags" layout="column">
+            <b>Tags: </b>
+              <md-chips ng-repeat="tags in blogsList.tags">
+                  <md-chip>{{tags}}</md-chip>
+              </md-chips>
+            <!-- <p align="justify" ng-repeat="tag in blogsList.tags">{{tag}}</p> -->
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="center">
+            <md-button class="md-primary md-raised" ng-click="viewBlog(blogsList.id)">View</a></md-button>
+            &nbsp;
+            &nbsp;
+            <md-button ng-href="" class="md-primary md-raised">Share</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </md-content>
+  </div>
+
+  <div flex="30">
+  <md-content class="md-padding" layout="column">
+    <p><b>Tags: </b></p>
+    <span>
+      <md-chips>
+        <md-chip-template>
+            <md-chip ng-repeat="tag in tagsList" ng-click="searchBlogsByTag(tag.tags)">   {{tag.tags}} 
+            </md-chip>
+        </md-chip-template>
+      </md-chips>
+    </span>
+  </md-content>
+  </div>
+</div>
